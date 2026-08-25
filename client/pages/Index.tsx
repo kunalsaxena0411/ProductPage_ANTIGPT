@@ -1,0 +1,73 @@
+import { ArrowRight, Check, Menu, Minus, Plus, Search, Sparkles, X, Zap } from "lucide-react";
+import { useState } from "react";
+
+const leadImage = "https://cdn.builder.io/api/v1/image/assets%2Fb15f1a57ff094d548423e2d5f4437eab%2F3d1c7dfb3ab24608863fd7f49fab2981?format=webp&width=800&height=1200";
+const outreachImage = "https://cdn.builder.io/api/v1/image/assets%2Fb15f1a57ff094d548423e2d5f4437eab%2Fe51c341244944856bc893e7a45d7d2b3?format=webp&width=800&height=1200";
+
+const APP_STORE_URL = "https://apps.apple.com/us/app/anti-0/id6757922031";
+const INSTAGRAM_URL = "https://www.instagram.com/antiaishield?igsh=MTY2aGkxdjRiOWhvMA%3D%3D";
+const HOME_URL = "https://www.antiai.ltd/home";
+const SERVICES_URL = "https://www.antiai.ltd/services";
+const TEAM_URL = "https://www.antiai.ltd/team";
+
+const faqs = [
+  ["What is ANTIGPT?", "ANTIGPT is a consumer-focused mobile application designed to help individuals detect AI-generated, manipulated, and synthetic media before it impacts trust, reputation, or decision-making."],
+  ["What can ANTIGPT detect?", "ANTIGPT detects deepfake and AI-generated video content and analyzes manipulated and synthetic media."],
+  ["Does ANTIGPT protect my data?", "Most detection runs directly on your device to minimize data exposure. Optional verification layers can be used when additional confidence is required without compromising your privacy."],
+  ["How does ANTIGPT work?", "ANTIGPT uses a hybrid intelligence model. The system remains transparent — you are informed what is being analyzed and why, rather than relying on opaque, black-box decisions."],
+  ["What will ANTIGPT become?", "ANTIGPT is being developed as a long-term trust utility, not just a detection tool. Planned evolutions include broader media formats, real-time analysis pipelines, and user-driven reporting mechanisms."],
+  ["Why does ANTIGPT matter?", "As generative AI becomes more accessible, the ability to fabricate videos, voices, and images is no longer limited to experts. ANTIGPT gives everyday users visibility and control."],
+];
+
+function DemoCard({ image, label, variant = "table" }: { image: string; label: string; variant?: "table" | "chat" }) {
+  return (
+    <div className="demo-shell">
+      <div className="demo-card">
+        <div className="demo-topbar"><span className="window-dots"><i /><i /><i /></span><span className="demo-title">{variant === "table" ? "ANTIGPT intelligence" : "Media analysis"}</span><span className="demo-live">● Live</span></div>
+        <div className="demo-body">
+          <img src={image} alt={label} />
+          <div className={`demo-overlay ${variant}`}>
+            <div className="demo-search"><Search size={14} /> {variant === "table" ? "Analyze a video, voice, or image" : "What is being analyzed?"}<Sparkles size={14} /></div>
+            {variant === "table" ? (
+              <><div className="fake-table-head"><span>BUSINESS</span><span>CONTACT</span><span>STATUS</span></div>{["Smile Studio", "Pearl Dental", "Oak & Co."].map((x, i) => <div className="fake-row" key={x}><span><b>{x}</b><small>Verified business</small></span><span>{["Dr. Maya Chen", "Alex Morgan", "Jamie Lee"][i]}<small>owner@company.com</small></span><em>Verified</em></div>)}</>
+            ) : (
+              <div className="chat"><div className="chat-message">I found a strong angle for <b>Smile Studio</b> based on their recent growth.</div><div className="chat-message purple">Hi Maya — noticed Smile Studio is expanding...</div></div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function Index() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [yearly, setYearly] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const goTo = (id: string) => { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); setMenuOpen(false); };
+  const openExternal = (url: string) => { window.open(url, "_blank", "noopener,noreferrer"); setMenuOpen(false); };
+  const openApp = () => openExternal(APP_STORE_URL);
+  const openInstagram = () => openExternal(INSTAGRAM_URL);
+  const openHome = () => openExternal(HOME_URL);
+  const openServices = () => openExternal(SERVICES_URL);
+  const openTeam = () => openExternal(TEAM_URL);
+  return (
+    <div className="site-shell">
+      <header className="site-header"><div className="nav-wrap"><button className="brand" onClick={() => goTo("top")}><span className="brand-mark">✳</span>ANTI AI</button><nav><button onClick={openHome}>Origin</button><button onClick={openServices}>What We Build</button><button onClick={() => goTo("reviews")}>Our Story</button></nav><div className="nav-actions"><button className="login" onClick={openTeam}>The Makers</button><button className="nav-cta" onClick={openApp}>Join the Mission <ArrowRight size={15} /></button><button className="mobile-menu" aria-label="Open navigation" onClick={() => setMenuOpen(true)}><Menu /></button></div></div></header>
+      {menuOpen && <div className="mobile-overlay"><button className="close-menu" onClick={() => setMenuOpen(false)}><X /></button><span className="mobile-label">Menu</span><div className="mobile-links"><button onClick={openHome}>Origin</button><button onClick={openServices}>What We Build</button><button onClick={() => goTo("reviews")}>Our Story</button><button className="nav-cta" onClick={openApp}>Join the Mission <ArrowRight size={15} /></button></div></div>}
+      <main id="top">
+        <section className="hero section-pad"><div className="eyebrow"><span>PRIVACY-FIRST MOBILE INTELLIGENCE</span><span className="eyebrow-line" /></div><h1>ANTIGPT Mobile Application<br /><em>The Truth Prevails.</em></h1><p className="hero-copy">Privacy-first mobile intelligence against AI-generated manipulation.</p><button className="primary-button" onClick={openApp}>Join the Mission <ArrowRight size={18} /></button><p className="microcopy">Detect synthetic media before it impacts trust, reputation, or decision-making.</p><div className="proof"><div className="avatars">{["E", "P", "E", "L", "A", "M", "D", "S"].map((a, i) => <span key={i} className={`avatar avatar-${i}`}>{a}</span>)}</div><p><strong>ANTIGPT</strong> visibility and control in a synthetic world</p></div><div className="hero-demo"><DemoCard image={leadImage} label="ANTIGPT intelligence table with verified contacts" /></div></section>
+        <section className="intro section-pad"><p className="kicker">What ANTIGPT Is</p><h2>A new standard for<br /><em>digital trust.</em></h2><p className="section-lede">ANTIGPT is a consumer-focused mobile application designed to help individuals detect AI-generated, manipulated, and synthetic media before it impacts trust, reputation, or decision-making.</p></section>
+        <section className="features section-pad"><div className="feature-row"><div className="feature-copy"><span className="pill"><Zap size={13} /> Deepfake Detection</span><h3>Detect AI-generated video content</h3><p>Identify deepfake and AI-generated video content before it affects your decisions. ANTIGPT gives everyday users a clear signal without exposing their private media.</p><button className="text-link" onClick={openApp}>See how it works <ArrowRight size={15} /></button></div><DemoCard image={leadImage} label="Leads table with businesses, websites, emails, and phone numbers" /></div><div className="feature-row reverse"><DemoCard image={outreachImage} label="AI chat drafting a cold email for a selected lead" variant="chat" /><div className="feature-copy"><span className="pill"><Sparkles size={13} /> On-device Inference</span><h3>Intelligence that stays on your device.</h3><p>Most detection runs directly on your device to minimize data exposure. When additional confidence is required, optional verification layers can be used without compromising your privacy.</p><button className="text-link" onClick={openApp}>See how it works <ArrowRight size={15} /></button></div></div><div className="feature-row"><div className="feature-copy"><span className="pill"><Search size={13} /> Privacy-preserving Analysis</span><h3>Transparent by design.</h3><p>You are informed what is being analyzed and why. ANTIGPT is built to remain transparent instead of relying on opaque, black-box decisions.</p><button className="text-link" onClick={openApp}>See how it works <ArrowRight size={15} /></button></div><div className="unlock-card"><div className="unlock-avatar">MC</div><div><small>DECISION MAKER</small><h4>Dr. Maya Chen</h4><p>Founder · Smile Studio</p></div><button onClick={openApp}><ArrowRight size={18} /></button><div className="unlock-url">linkedin.com/in/maya-chen <Check size={14} /></div></div></div></section>
+        <section className="getting section-pad"><p className="kicker">How It Works</p><h2>Hybrid intelligence, built for trust</h2><p className="section-lede">Most detection runs directly on the user’s device. Optional verification workflows add confidence for higher-risk content while keeping privacy at the center.</p><div className="walkthrough"><DemoCard image={outreachImage} label="Hybrid intelligence, built for trust" variant="chat" /></div></section>
+        <section id="reviews" className="reviews section-pad"><p className="kicker">Founder stories</p><h2>Built for people who<br /><em>do the selling.</em></h2><div className="review-grid">{[["Evelyn D.", "Business Owner", "A lead-gen game changer. MyTruffl paid for itself 3x over in just one deal!"], ["Pablo G.", "Founder of Apolia", "Closed $12k in new contracts in my first month. The AI scripts are scary good."], ["Jamie R.", "Sales Professional", "An incredibly fast and reliable way to find quality leads. Easy to use, efficient, and valuable."]].map(([name, role, quote], i) => <article className="review-card" key={name}><div className="stars">★★★★★</div><p>“{quote}”</p><div className="reviewer"><span className={`avatar avatar-${i + 2}`}>{name[0]}</span><div><b>{name}</b><small>{role}</small></div></div></article>)}</div></section>
+        <section className="comparison section-pad"><p className="kicker">Core capabilities</p><h2>What ANTIGPT<br />is built to do</h2><p className="section-lede">Fast, transparent intelligence for a changing media landscape.</p><div className="comparison-wrap"><table><thead><tr><th>Feature</th><th className="highlight">ANTIGPT</th><th>Apollo</th><th>ZoomInfo</th></tr></thead><tbody>{[["Data freshness", "Live, real-time", "Stored database", "Stored database"], ["Price", "From $29/mo", "From $49/mo", "$1,200/mo"], ["Setup time", "10 seconds", "Hours of setup", "Enterprise contract"], ["Any niche, any city", "Yes", "Limited", "Limited"], ["Media analysis scripts", "Included", "No", "Paid add-on"]].map(row => <tr key={row[0]}>{row.map((cell, i) => <td className={i === 1 ? "highlight" : ""} key={cell}>{i === 1 && cell === "Yes" ? <Check size={16} /> : cell}</td>)}</tr>)}</tbody></table></div></section>
+        <section id="pricing" className="pricing section-pad"><p className="kicker">Join the mission</p><h2>Start finding your<br /><em>next best client.</em></h2><div className="billing"><span className="save">2 months free</span><div><button className={!yearly ? "active" : ""} onClick={() => setYearly(false)}>Monthly</button><button className={yearly ? "active" : ""} onClick={() => setYearly(true)}>New Chapters</button></div></div><div className="plans">{[["Individuals", "ANTIGPT", "On-device"], ["Collaborators", "ANTIGPT", "Optional"]].map(([name, price, credits], i) => <article className={`plan ${i === 1 ? "featured" : ""}`} key={name}>{i === 1 && <span className="popular">MOST POPULAR</span>}<h3>{name}</h3><p className="plan-desc">For solo founders and small teams</p><div className="price">{price}<small>/mobile application</small></div><ul><li><Check /> <b>{credits}</b> privacy-first analysis</li><li><Check /> Deepfake detection</li><li><Check /> Synthetic media analysis</li><li><Check /> {i === 0 ? "Transparent decisions" : "Broader media formats"}</li><li><Check /> User-driven reporting</li></ul><button className="plan-button" onClick={openApp}>Join the Mission <ArrowRight size={16} /></button></article>)}</div></section>
+        <section className="bottom-cta section-pad"><div><p className="kicker">The future of media is here</p><h2>Trust what you see.<br />Understand what you share.</h2><p>Help make media verification intuitive, fast, and accessible for everyone.</p><button className="primary-button" onClick={openApp}>Join the Mission <ArrowRight size={18} /></button></div></section>
+        <section className="resources section-pad"><p className="kicker">New Chapters</p><h2>The ANTI AI journal:<br /><em>notes on digital trust.</em></h2><div className="article-grid">{[["The Prologue", "Why synthetic media changes what trust means"], ["Our Story", "The case for privacy-first intelligence"], ["Capabilities", "Inside the future of media verification"]].map(([category, title], i) => <article className="article" key={title}><div className="article-image"><img src={i === 1 ? outreachImage : leadImage} alt="" /></div><small>{category} · May 28, 2026</small><h3>{title}</h3><button className="text-link" onClick={openApp}>Read chapter <ArrowRight size={15} /></button></article>)}</div></section>
+        <section id="faq" className="faq section-pad"><p className="kicker">Collaborate?</p><h2>Build a more trustworthy<br /><em>digital world.</em></h2><p className="section-lede">Learn how ANTIGPT protects context, privacy, and confidence in a synthetic media landscape.</p><div className="faq-list">{faqs.map(([q, a], i) => <div className={`faq-item ${openFaq === i ? "open" : ""}`} key={q}><button onClick={() => setOpenFaq(openFaq === i ? null : i)}><span>{q}</span>{openFaq === i ? <Minus size={18} /> : <Plus size={18} />}</button>{openFaq === i && <p>{a}</p>}</div>)}</div></section>
+      </main>
+      <footer><div className="footer-grid"><div><button className="brand footer-brand" onClick={() => goTo("top")}><span className="brand-mark">✳</span>ANTI AI</button><p>The Truth Prevails.<br />Privacy-first intelligence against manipulation.</p><small>© 2026 ANTIGPT</small></div><div><b>Navigate</b><button onClick={openHome}>Origin</button><button onClick={() => goTo("reviews")}>Our Story</button></div><div><b>Follow Us</b><button onClick={openServices}>What We Build</button><button onClick={openInstagram}>Instagram</button></div><div><b>Write to Us</b><button onClick={openApp}>Join the Mission <ArrowRight size={14} /></button><a className="footer-email-link" href="mailto:hello@antiai.ltd">hello@antiai.ltd</a></div></div></footer>
+    </div>
+  );
+}
